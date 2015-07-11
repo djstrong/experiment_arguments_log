@@ -14,9 +14,12 @@ def experiment_arguments_log
     script_relative_path = $PROGRAM_NAME
     script_absolute_path = File.expand_path($PROGRAM_NAME)
     arguments = ARGV
-    line = "%s %s$ %s %s" % [date, working_directory, script_relative_path, arguments.map { |argument| argument.include?(' ') ? '"%s"'%[argument] : argument }.join(' ')]
 
-    output.puts line
+    output.puts '    _  __  __  __  __  __  __  __  __  __  __  __  __  __  __  _'
+    output.puts '     )(  )(  )(  )(  )(  )(  )(  )(  )(  )(  )(  )(  )(  )(  )( '
+    output.puts '    (__)(__)(__)(__)(__)(__)(__)(__)(__)(__)(__)(__)(__)(__)(__)'
+    output.puts
+    output.puts "%s %s$ %s %s" % [date, working_directory, script_relative_path, arguments.map { |argument| argument.include?(' ') ? '"%s"'%[argument] : argument }.join(' ')]
     output.puts 'Date: %s' % [date]
     output.puts 'Working directory: %s' % [working_directory]
     output.puts 'Script path: %s' % [script_relative_path]
@@ -31,18 +34,16 @@ def experiment_arguments_log
     ARGV.each do |argument|
       begin
         File.open(argument) do |argument_file|
-          lines = []
-          5.times do
-            line = argument_file.gets(1024) || break
-            lines << line
-          end
           output.puts 'File path: %s' % [argument]
           output.puts 'File absolute path: %s' % [File.expand_path(argument)]
           output.puts 'File access time: %s' % [argument_file.atime]
           output.puts 'File modification time: %s' % [argument_file.mtime]
           output.puts 'File size: %s' % [argument_file.size]
           output.puts 'Content:'
-          output.puts lines
+          5.times do
+            output.puts argument_file.gets(1024) || break
+          end
+
           output.puts
         end
       rescue Errno::ENOENT

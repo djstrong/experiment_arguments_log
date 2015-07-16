@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'stringio'
 
 def experiment_arguments_log
   if ENV['RUBY_EXPERIMENT_LOG']
@@ -51,5 +52,22 @@ def experiment_arguments_log
     end
 
     output.puts
+
+    if defined? $ruby_experiment_arguments_log
+      output.puts 'STDOUT:'
+      output.puts $ruby_experiment_arguments_log.string.lines[0..1024]
+      output.puts
+    end
   end
 end
+
+
+def capture_stdout
+  $ruby_experiment_arguments_log = StringIO.new
+
+  def $stdout.write string
+    $ruby_experiment_arguments_log.write string
+    super
+  end
+end
+

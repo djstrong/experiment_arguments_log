@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'experiment_arguments_log'
-  s.version = '0.0.2'
+  s.version = '0.0.3'
   s.date = '2015-07-16'
   s.summary = 'Logs experiment execution arguments and output.'
   s.description = 'Logs script execution arguments with head of argument files and standard output.'

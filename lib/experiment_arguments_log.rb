@@ -55,7 +55,7 @@ def experiment_arguments_log
 
     if defined? $ruby_experiment_arguments_log
       output.puts 'STDOUT:'
-      output.puts $ruby_experiment_arguments_log.string.lines[0..1024]
+      output.puts $ruby_experiment_arguments_log.string
       output.puts
     end
   end
@@ -66,7 +66,7 @@ def capture_stdout
   $ruby_experiment_arguments_log = StringIO.new
 
   def $stdout.write string
-    $ruby_experiment_arguments_log.write string
+    ($ruby_experiment_arguments_log.write string) if $ruby_experiment_arguments_log.size < 1048576
     super
   end
 end

@@ -40,9 +40,11 @@ def experiment_arguments_log
           output.puts 'File access time: %s' % [argument_file.atime]
           output.puts 'File modification time: %s' % [argument_file.mtime]
           output.puts 'File size: %s' % [argument_file.size]
-          output.puts 'Content:'
-          5.times do
-            output.puts argument_file.gets(1024) || break
+          if argument_file.file?
+            output.puts 'Content:'
+            5.times do
+              output.puts argument_file.gets(1024) || break
+            end
           end
 
           output.puts
